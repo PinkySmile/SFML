@@ -232,6 +232,10 @@ else()
 
     add_library(Freetype::Freetype ALIAS freetype)
     add_library(HarfBuzz::HarfBuzz ALIAS harfbuzz)
+    if(SFML_OS_EMSCRIPTEN)
+        target_compile_options(freetype PRIVATE ${SFML_EMSCRIPTEN_TARGET_COMPILE_OPTIONS})
+        target_link_options(freetype PRIVATE ${SFML_EMSCRIPTEN_TARGET_LINK_OPTIONS})
+    endif()
 endif()
 
 target_link_libraries(sfml-graphics PRIVATE Freetype::Freetype HarfBuzz::HarfBuzz)
